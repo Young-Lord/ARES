@@ -57,9 +57,9 @@ class TestCommandLine(object):
                         "--appium_port",
                         "4270",
                         "--timer",
-                        "1",  # The test will stop after 1 minute.
+                        "10",  # The test will stop after 10 minutes.
                         "--iterations",
-                        "1",
+                        "3",
                         "--pool_strings",
                         os.path.join(
                             os.path.dirname(os.path.realpath(__file__)),
@@ -69,7 +69,7 @@ class TestCommandLine(object):
                         ),
                         "--apps",
                         valid_apk_path,
-                    ],
+                    ]+'--instr_jacoco --rotation --internet --trials_per_app 1'.split(' '),
                 )
                 exit_code = test_application.main()
                 assert exit_code == 0
