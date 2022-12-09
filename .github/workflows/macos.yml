@@ -1,8 +1,7 @@
 name: MacOS
 
 on:
-  push:
-  pull_request:
+  workflow_dispatch:
 
 jobs:
   test:
@@ -56,3 +55,13 @@ jobs:
           echo '```' >> $GITHUB_STEP_SUMMARY
           cat logs/logger.log >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
+
+      - name: 压缩
+        run: |
+          zip -r build.zip .
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v2
+        with:
+          name: build.zip
+          path: ./build.zip
